@@ -23,4 +23,5 @@ def submit_request():
     new_request = request.json.get('new_request')
     request_id = db.post.insert(request=new_request)
     print("New request created with id: ", request_id)
-    return ((redirect(URL('index'))))
+    #return ((redirect(URL('index'))))
+    return request_id
