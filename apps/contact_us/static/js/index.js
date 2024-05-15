@@ -20,7 +20,29 @@ app.data = {
             contacts: [],
             filteredContacts: [],
 
+            // Control fields
+            nameSearch: "",
+            messageSearch: "",
+
         };
+    },
+    computed: {
+        filtered_requests() {
+            if (this.filte.length === 0) {
+                return this.posts;
+            }
+            console.log("Filtering posts by tags: ", this.activeTags.map(tag => tag));
+            console.log("Post tags: ", this.posts.flatMap(post => post.tags.map(tag => tag)));
+            return this.posts.filter(post => 
+                post.tags.some(postTag => {
+                    const cleanTags = postTag.replace(/[{}'"]/g, "").split(','); // Split tags by comma
+                    return cleanTags.some(cleanTag => {
+                        const trimmedTag = cleanTag.trim(); // Remove leading and trailing whitespace
+                        return this.activeTags.includes(trimmedTag);
+                    });
+                })
+            );
+        }
     },
     methods: {
         // Temp function
@@ -56,6 +78,7 @@ app.data = {
         load_all_contacts: function() {
             axios.get(load_all_contacts_url).then(function(response) {
                 app.vue.contacts = response.data.contacts;
+                app.vue.filteredContacts = app.vue.contacts;
             }).catch(function(error) {
                 console.log(error);
             });

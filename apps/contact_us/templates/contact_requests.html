@@ -19,6 +19,61 @@
             - Name
             - Message
 
+
+
+        
+        
+
     -->
-    
+
+    <div class="section">
+        <div class="container">
+            <h1 class="title">Contact Requests</h1>
+            <HStack>
+                <div class="field">
+                    <div class="control">
+                        <input class="search-input" type="text" placeholder="Search by Name" v-model="nameSearch">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input class="search-input" type="text" placeholder="Search by Message" v-model="messageSearch">
+                    </div>
+                </div>
+            </HStack>
+
+            <table class="table is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="request in filtered_requests">
+                        <td>{{ request.name }}</td>
+                        <td>{{ request.email }}</td>
+                        <td>{{ request.phone }}</td>
+                        <td>{{ request.message }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+
+[[block page_scripts]]
+
+<script>
+  let load_requests_url = "[[=XML(load_requests_url)]]";
+
+
+</script>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+<script src="js/index.js"></script>
+[[end]]
