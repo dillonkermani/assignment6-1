@@ -18,15 +18,18 @@ app.data = {
 
             // ViewModel fields
             contacts: [],
-            fileredContacts: [],
-
+            filteredContacts: [],
 
         };
     },
     methods: {
+        // Temp function
+        print_contacts: function() {
+            console.log("CONTACTS:", this.contacts);
+        },
         // Complete as you see fit.
-        create_contact: function() {
-            axios.post(create_contact_url, {
+        submit_request: function() {
+            axios.post(submit_request_url, {
                 name: this.new_request.name,
                 email: this.new_request.email,
                 phone: this.new_request.phone,
