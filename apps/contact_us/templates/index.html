@@ -23,8 +23,65 @@
           
 
   -->
+  <div class="section">
+    <div class="container">
+      <h1 class="title">Contact Us</h1>
+      <form id="contact-form">
+
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input class="name-input" type="text", placeholder="Name", id="name" v-model="new_request.name" required> 
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="email-input" type="email", placeholder="Email", id="email" v-model="new_request.email" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Phone</label>
+          <div class="control">
+            <input class="phone-input" type="number", placeholder="Phone", id="phone" v-model="new_request.phone" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Message</label>
+          <div class="control">
+            <textarea class="message-input" placeholder="Message", id="message" v-model="new_request.message" required></textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button class="button is-primary" @click="submit_request" :disabled="!new_request.name || !new_request.email || !new_request.phone || !new_request.message">Submit</button>
+          </div>
+
+
+      </form>
+    </div>
+  </div>
+
 
 
 </div>
+
+
+[[block page_scripts]]
+
+<script>
+  let submit_request_url = "[[=XML(submit_request_url)]]";
+
+
+</script>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+<script src="js/index.js"></script>
+[[end]]
 
 
