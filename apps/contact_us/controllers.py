@@ -21,6 +21,6 @@ def index():
 @action.uses(db, auth.user, session)
 def create_form():
     new_form = request.json.get('new_form')
-    form_id = db.form.insert(form=new_form)
+    form_id = db.form.insert(name=new_form['name'], email=new_form['email'], phone=new_form['phone'], message=new_form['message'])
     print("New form created with id: ", form_id)
     return dict(form=new_form, form_id=form_id)
