@@ -23,7 +23,7 @@ def get_time():
 
 # Complete. 
 db.define_table(
-    'request',
+    'form',
     Field('name', requires=is_not_empty),
     Field('email', requires=is_not_empty),
     Field('phone', requires=is_not_empty),

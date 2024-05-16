@@ -13,15 +13,14 @@ import datetime
 @action.uses('index.html', db, auth.user)
 def index():
     return dict(
-        submit_request_url = URL('contact_us', 'create_post', signer=URLSigner()),
+        create_form_url = URL('create_form')
     )
 
 # Create a new post
-@action('submit_request', method="POST")
+@action('create_form', method="POST")
 @action.uses(db, auth.user, session)
-def submit_request():
-    new_request = request.json.get('new_request')
-    request_id = db.post.insert(request=new_request)
-    print("New request created with id: ", request_id)
-    #return ((redirect(URL('index'))))
-    return request_id
+def create_form():
+    new_form = request.json.get('new_form')
+    form_id = db.form.insert(form=new_form)
+    print("New form created with id: ", form_id)
+    return dict(form=new_form, form_id=form_id)

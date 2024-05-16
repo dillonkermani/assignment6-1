@@ -8,34 +8,34 @@
         <div class="field">
           <label class="label">Name</label>
           <div class="control">
-            <input class="name-input" type="text" placeholder="Name" id="name" v-model="new_request.name" required>
+            <input class="name-input" type="text" placeholder="Name" id="name" v-model="new_form.name" required>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Email</label>
           <div class="control">
-            <input class="email-input" type="email" placeholder="Email" id="email" v-model="new_request.email" required>
+            <input class="email-input" type="email" placeholder="Email" id="email" v-model="new_form.email" required>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Phone</label>
           <div class="control">
-            <input class="phone-input" type="number" placeholder="Phone" id="phone" v-model="new_request.phone" required>
+            <input class="phone-input" type="number" placeholder="Phone" id="phone" v-model="new_form.phone" required>
           </div>  
         </div>
 
         <div class="field">
           <label class="label">Message</label>
           <div class="control">
-            <textarea class="message-input" placeholder="Message" id="message" v-model="new_request.message" required></textarea>
+            <textarea class="message-input" placeholder="Message" id="message" v-model="new_form.message" required></textarea>
           </div>
         </div>
 
         <div class="field">
           <div class="control">
-            <button class="button is-primary" @click.prevent="submit_request" :disabled="!new_request.name || !new_request.email || !new_request.phone || !new_request.message">Submit</button>
+            <button class="button is-primary" @click.prevent="create_form" :disabled="!new_form.name || !new_form.email || !new_form.phone || !new_form.message">Submit</button>
           </div>
         </div>
       </form>
@@ -46,7 +46,7 @@
 [[block page_scripts]]
 
 <script>
-  let submit_request_url = "[[=XML(submit_request_url)]]";
+  let create_form_url = "[[=XML(create_form_url)]]";
 </script>
 
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

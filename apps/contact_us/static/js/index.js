@@ -8,22 +8,22 @@ app.data = {
   data() {
     return {
       // Required fields
-      new_request: {
+      new_form: {
         name: "",
         email: "",
         phone: "",
         message: "",
       },
       // ViewModel fields
-      contacts: [],
-      filteredContacts: [],
+      forms: [],
+      filteredForms: [],
       // Control fields
       nameSearch: "",
       messageSearch: "",
     };
   },
   computed: {
-    filtered_requests() {
+    filtered_forms() {
       if (this.filte.length === 0) {
         return this.posts;
       }
@@ -42,28 +42,25 @@ app.data = {
   },
   methods: {
     // Temp function
-    print_contacts: function() {
-      console.log("CONTACTS:", this.contacts);
+    print_forms: function() {
+      console.log("forms:", this.forms);
     },
     // Complete as you see fit.
-    submit_request: function() {
-      axios.post(submit_request_url, {
-        name: this.new_request.name,
-        email: this.new_request.email,
-        phone: this.new_request.phone,
-        message: this.new_request.message,
+    create_form: function() {
+      axios.post(create_form_url, {
+        new_form: this.new_form,
       }).then(function(response) {
-        console.log("Request submitted. Response:", response);
-        app.vue.new_request.name = "";
-        app.vue.new_request.email = "";
-        app.vue.new_request.phone = "";
-        app.vue.new_request.message = "";
+        console.log("form submitted. Response:", response.data.form_id);
+        app.vue.new_form.name = "";
+        app.vue.new_form.email = "";
+        app.vue.new_form.phone = "";
+        app.vue.new_form.message = "";
       }).catch(function(error) {
         console.log(error);
       });
     },
-    delete_contact: function(contact_id) {
-      axios.post(delete_contact_url, {
+    delete_form: function(contact_id) {
+      axios.post(delete_form_url, {
         id: contact_id,
       }).then(function(response) {
         console.log(response);
@@ -71,19 +68,19 @@ app.data = {
         console.log(error);
       });
     },
-    load_all_contacts: function() {
-      axios.get(load_all_contacts_url).then(function(response) {
-        app.vue.contacts = response.data.contacts;
-        app.vue.filteredContacts = app.vue.contacts;
+    load_all_forms: function() {
+      axios.get(load_all_forms_url).then(function(response) {
+        app.vue.forms = response.data.forms;
+        app.vue.filteredforms = app.vue.forms;
       }).catch(function(error) {
         console.log(error);
       });
     },
-    search_contacts_name: function(name) {
-      this.filteredContacts = this.contacts.filter(contact => contact.name.toLowerCase().includes(name.toLowerCase()));
+    search_forms_name: function(name) {
+      this.filteredforms = this.forms.filter(contact => contact.name.toLowerCase().includes(name.toLowerCase()));
     },
-    search_contacts_message: function(message) {
-      this.filteredContacts = this.contacts.filter(contact => contact.message.toLowerCase().includes(message.toLowerCase()));
+    search_forms_message: function(message) {
+      this.filteredforms = this.forms.filter(contact => contact.message.toLowerCase().includes(message.toLowerCase()));
     },
   }
 };
@@ -91,8 +88,8 @@ app.data = {
 app.vue = Vue.createApp(app.data).mount("#app");
 
 app.load_data = function () {
-  if (window.location.pathname.endsWith('contact_requests.html')) {
-    app.vue.load_all_contacts();
+  if (window.location.pathname.endsWith('contact_forms.html')) {
+    app.vue.load_all_forms();
   }
 }
 
