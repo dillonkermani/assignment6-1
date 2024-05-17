@@ -24,7 +24,14 @@ app.data = {
   },
   computed: {
     filtered_forms() {
-      return this.forms.filter(contact => contact.name.toLowerCase().includes(this.nameSearch.toLowerCase()));
+      //return this.forms.filter(form => form.name.toLowerCase().includes(this.nameSearch.toLowerCase()));
+      if (this.nameSearch != "") {
+        this.search_forms_name(this.nameSearch)
+      }
+      if (this.messageSearch != "") {
+        this.search_forms_message(this.messageSearch)
+      }
+      return this.filteredForms;
     },
   },
   methods: {
@@ -72,10 +79,10 @@ app.data = {
       });
     },
     search_forms_name: function(name) {
-      this.filteredforms = this.forms.filter(contact => contact.name.toLowerCase().includes(name.toLowerCase()));
+      this.filteredForms = this.forms.filter(form => form.name.toLowerCase().includes(name.toLowerCase()));
     },
     search_forms_message: function(message) {
-      this.filteredforms = this.forms.filter(contact => contact.message.toLowerCase().includes(message.toLowerCase()));
+      this.filteredForms = this.forms.filter(form => form.message.toLowerCase().includes(message.toLowerCase()));
     },
   }
 };
