@@ -15,27 +15,27 @@
         <div class="field">
           <label class="label">Email</label>
           <div class="control">
-            <input class="email-input" type="email" placeholder="Email" id="email" v-model="new_form.email" required>
+            <input class="email-input" type="email" placeholder="Email" id="email" name="email" v-model="new_form.email" required>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Phone</label>
           <div class="control">
-            <input class="phone-input" type="number" placeholder="Phone" id="phone" v-model="new_form.phone" required>
+            <input class="phone-input" type="number" placeholder="Phone" id="phone" name="phone" v-model="new_form.phone" required>
           </div>  
         </div>
 
         <div class="field">
           <label class="label">Message</label>
           <div class="control">
-            <textarea class="message-input" placeholder="Message" id="message" v-model="new_form.message" required></textarea>
+            <textarea class="message-input" placeholder="Message" id="message" name="message" v-model="new_form.message" required></textarea>
           </div>
         </div>
 
         <div class="field">
           <div class="control">
-            <button class="button is-primary" @click.prevent="create_form" :disabled="!new_form.name || !new_form.email || !new_form.phone || !new_form.message">Submit</button>
+            <input class="button is-primary" type="submit" value="Submit" :disabled="!new_form.name || !new_form.email || !new_form.phone || !new_form.message">
           </div>
         </div>
       </form>

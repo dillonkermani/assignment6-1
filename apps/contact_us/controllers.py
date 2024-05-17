@@ -9,7 +9,7 @@ import datetime
 
 # Home page action
 @action('index')
-@action.uses('index.html', db, auth.user)
+@action.uses('index.html', db)
 def index():
     return dict(
         create_form_url = URL('create_form')
@@ -45,6 +45,7 @@ def create_form():
     new_form = request.json.get('new_form')
     form_id = db.form.insert(name=new_form['name'], email=new_form['email'], phone=new_form['phone'], message=new_form['message'])
     print("New form created with id: ", form_id)
+    redirect(URL('index'))
     return dict(form=new_form, form_id=form_id)
 
 @action('load_all_forms', method="GET")
