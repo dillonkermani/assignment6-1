@@ -55,12 +55,12 @@ app.data = {
         console.log(error);
       });
     },
-    load_all_forms: function() {
+    loadForms: function() {
       axios.get(load_all_forms_url).then(function(response) {
-        this.forms = response.data.forms;
-        this.filteredforms = this.forms;
-        console.log("forms loaded:", this.forms);
-        console.log("filteredforms loaded:", this.filteredForms);
+        app.vue.forms = response.data.forms;
+        app.vue.filteredForms = response.data.forms;
+        console.log("forms loaded:", response.data.forms);
+        console.log("filteredforms loaded:", app.vue.filteredForms);
       }).catch(function(error) {
         console.log(error);
       });
@@ -77,10 +77,8 @@ app.data = {
 app.vue = Vue.createApp(app.data).mount("#app");
 
 app.load_data = function () {
-  if (window.location.pathname.endsWith('contact_requests.html')) {
-    console.log("Calling load_all_forms")
-    app.vue.load_all_forms();
-  }
+  console.log("Calling load_data")
+  app.vue.loadForms();
 }
 
 app.load_data();
