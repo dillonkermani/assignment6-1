@@ -24,7 +24,7 @@ def validate_form(form):
 @action('index', method=['POST', 'GET'])
 @action.uses('index.html', db, auth)
 def index(path=None):
-    form = Form(db.form, validation=validate_form, formstyle=FormStyleBulma)
+    form = Form(db.contact_request, validation=validate_form, formstyle=FormStyleBulma)
     if form.accepted:
         redirect(URL('index'))
     return dict(
@@ -40,10 +40,10 @@ def contact_requests(path = None):
         grid = Grid(path,
                 formstyle=FormStyleBulma,
                 grid_class_style=GridClassStyleBulma,
-                query=(db.form.id),
-                orderby=(~db.form.id),                
-                search_queries=[['Search by Name', lambda val: db.form.name.contains(val)], 
-                                ['Search by Message', lambda val: db.form.message.contains(val)]]
+                query=(db.contact_request.id),
+                orderby=(~db.contact_request.id),                
+                search_queries=[['Search by Name', lambda val: db.contact_request.name.contains(val)], 
+                                ['Search by Message', lambda val: db.contact_request.message.contains(val)]]
         )
         return dict(
             contact_requests_url = URL('contact_requests'),
@@ -59,7 +59,7 @@ def contact_requests(path = None):
 @action.uses(db, auth.user, session)
 def create_form():
     new_form = request.json.get('new_form')
-    form_id = db.form.insert(name=new_form['name'], email=new_form['email'], phone=new_form['phone'], message=new_form['message'])
+    form_id = db.contact_request.insert(name=new_form['name'], email=new_form['email'], phone=new_form['phone'], message=new_form['message'])
     print("New form created with id: ", form_id)
     redirect(URL('index'))
     return dict(form=new_form, form_id=form_id)
@@ -67,12 +67,12 @@ def create_form():
 @action('load_all_forms', method="GET")
 @action.uses(db, auth.user, session)
 def load_all_forms():
-    forms = db(db.form).select().as_list()
+    forms = db(db.contact_request).select().as_list()
     return dict(forms=forms)
 
 @action('delete_form', method="POST")
 @action.uses(db, auth.user, session)
 def delete_form():
     form_id = request.json.get('form_id')
-    db(db.form.id == form_id).delete()
+    db(db.contact_request.id == form_id).delete()
     return dict(success=True)

@@ -16,7 +16,7 @@ def get_time():
 
 # Complete. 
 db.define_table(
-    'form',
+    'contact_request',
     Field('name', 'string'),
     Field('email', 'string'),
     Field('phone', 'string'),

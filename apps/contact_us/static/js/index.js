@@ -35,10 +35,6 @@ app.data = {
     },
   },
   methods: {
-    // Temp function
-    print_forms: function() {
-      console.log("forms:", this.forms);
-    },
     // Complete as you see fit.
     create_form: function() {
       axios.post(create_form_url, {
