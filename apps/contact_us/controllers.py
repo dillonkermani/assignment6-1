@@ -7,12 +7,26 @@ from py4web.utils.form import Form, FormStyleBulma
 from py4web.utils.grid import Grid, GridClassStyleBulma
 import datetime
 
+def validate_form(form):
+    if not form.vars["name"]:
+        form.errors["name"] = "Name is required"
+    if not form.vars["email"]:
+        form.errors["email"] = "Email is required"
+    if not form.vars["phone"]:
+        form.errors["phone"] = "Phone is required"
+    if not form.vars["message"]:
+        form.errors["message"] = "Message is required"
+
 # Home page action
-@action('index')
-@action.uses('index.html', db)
-def index():
+@action('index/<path:path>', method=['POST', 'GET'])
+@action('index', method=['POST', 'GET'])
+@action.uses('index.html', db, auth)
+def index(path=None):
+    form = Form(db.form, validation=validate_form, formstyle=FormStyleBulma)
+    if form.accepted:
+        redirect(URL('index'))
     return dict(
-        create_form_url = URL('create_form')
+        form=form,
     )
 
 @action('contact_requests', method=["GET", "POST"])
