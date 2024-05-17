@@ -24,21 +24,8 @@ app.data = {
   },
   computed: {
     filtered_forms() {
-      if (this.filte.length === 0) {
-        return this.posts;
-      }
-      console.log("Filtering posts by tags: ", this.activeTags.map(tag => tag));
-      console.log("Post tags: ", this.posts.flatMap(post => post.tags.map(tag => tag)));
-      return this.posts.filter(post => 
-        post.tags.some(postTag => {
-          const cleanTags = postTag.replace(/[{}'"]/g, "").split(','); // Split tags by comma
-          return cleanTags.some(cleanTag => {
-            const trimmedTag = cleanTag.trim(); // Remove leading and trailing whitespace
-            return this.activeTags.includes(trimmedTag);
-          });
-        })
-      );
-    }
+      return this.forms.filter(contact => contact.name.toLowerCase().includes(this.nameSearch.toLowerCase()));
+    },
   },
   methods: {
     // Temp function
@@ -71,7 +58,7 @@ app.data = {
     load_all_forms: function() {
       axios.get(load_all_forms_url).then(function(response) {
         app.vue.forms = response.data.forms;
-        app.vue.filteredforms = app.vue.forms;
+        app.vue.filteredforms = response.data.forms;
       }).catch(function(error) {
         console.log(error);
       });

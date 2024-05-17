@@ -31,6 +31,7 @@ def contact_requests(path = None):
         )
         return dict(
             contact_requests_url = URL('contact_requests'),
+            load_all_forms_url = URL('load_all_forms'),
             grid = grid
             )
     else:
@@ -44,3 +45,9 @@ def create_form():
     form_id = db.form.insert(name=new_form['name'], email=new_form['email'], phone=new_form['phone'], message=new_form['message'])
     print("New form created with id: ", form_id)
     return dict(form=new_form, form_id=form_id)
+
+@action('load_all_forms', method="GET")
+@action.uses(db, auth.user, session)
+def load_all_forms():
+    forms = db(db.form).select().as_list()
+    return dict(forms=forms)
