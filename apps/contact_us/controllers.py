@@ -12,6 +12,8 @@ def validate_form(form):
         form.errors["name"] = "Name is required"
     if not form.vars["email"]:
         form.errors["email"] = "Email is required"
+    elif "@" not in form.vars["email"] or "." not in form.vars["email"]:
+        form.errors["email"] = "Invalid email"
     if not form.vars["phone"]:
         form.errors["phone"] = "Phone is required"
     if not form.vars["message"]:
