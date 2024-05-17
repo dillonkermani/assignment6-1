@@ -32,6 +32,7 @@ def contact_requests(path = None):
         return dict(
             contact_requests_url = URL('contact_requests'),
             load_all_forms_url = URL('load_all_forms'),
+            delete_form_url = URL('delete_form'),
             grid = grid
             )
     else:
@@ -51,3 +52,10 @@ def create_form():
 def load_all_forms():
     forms = db(db.form).select().as_list()
     return dict(forms=forms)
+
+@action('delete_form', method="POST")
+@action.uses(db, auth.user, session)
+def delete_form():
+    form_id = request.json.get('form_id')
+    db(db.form.id == form_id).delete()
+    return dict(success=True)

@@ -46,9 +46,10 @@ app.data = {
         console.log(error);
       });
     },
-    delete_form: function(contact_id) {
+    delete_form: function(form_id) {
+      console.log("deleting form with id:", form_id);
       axios.post(delete_form_url, {
-        id: contact_id,
+        form_id: form_id,
       }).then(function(response) {
         console.log(response);
       }).catch(function(error) {
