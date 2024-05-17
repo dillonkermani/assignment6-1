@@ -5,7 +5,6 @@ from py4web.utils.url_signer import URLSigner
 from .models import get_user_email
 from py4web.utils.form import Form, FormStyleBulma
 from py4web.utils.grid import Grid, GridClassStyleBulma
-#from py4web import Field, IS_NOT_EMPTY, IS_EMAIL
 import datetime
 
 # Home page action
@@ -15,6 +14,27 @@ def index():
     return dict(
         create_form_url = URL('create_form')
     )
+
+@action('contact_requests', method=["GET", "POST"])
+@action('contact_requests/<path:path>', method=['POST', 'GET'])
+@action.uses('contact_requests.html', db, auth.user)
+def contact_requests(path = None):
+    user_email = get_user_email()
+    if user_email and user_email == "admin@example.com":
+        grid = Grid(path,
+                formstyle=FormStyleBulma,
+                grid_class_style=GridClassStyleBulma,
+                query=(db.form.id),
+                orderby=(~db.form.id),                
+                search_queries=[['Search by Name', lambda val: db.form.name.contains(val)], 
+                                ['Search by Message', lambda val: db.form.message.contains(val)]]
+        )
+        return dict(
+            contact_requests_url = URL('contact_requests'),
+            grid = grid
+            )
+    else:
+        redirect(URL('index'))
 
 # Create a new post
 @action('create_form', method="POST")

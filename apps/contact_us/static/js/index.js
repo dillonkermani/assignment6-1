@@ -88,7 +88,7 @@ app.data = {
 app.vue = Vue.createApp(app.data).mount("#app");
 
 app.load_data = function () {
-  if (window.location.pathname.endsWith('contact_forms.html')) {
+  if (window.location.pathname.endsWith('contact_requests.html')) {
     app.vue.load_all_forms();
   }
 }
