@@ -50,12 +50,17 @@ app.data = {
       console.log("deleting form with id:", form_id);
       axios.post(delete_form_url, {
         form_id: form_id,
-      }).then(function(response) {
+      }).then((response) => {  // Use arrow function here
         console.log(response);
+        //this.filteredForms = this.filteredForms.filter(form => form.id !== form_id);
+        const index = this.filteredForms.findIndex(form => form.id === form_id);
+        if (index !== -1) {
+          this.filteredForms.splice(index, 1);  // Remove the item at the found index
+        }
       }).catch(function(error) {
         console.log(error);
       });
-    },
+    },    
     loadForms: function() {
       axios.get(load_all_forms_url).then(function(response) {
         app.vue.forms = response.data.forms;
