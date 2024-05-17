@@ -57,8 +57,10 @@ app.data = {
     },
     load_all_forms: function() {
       axios.get(load_all_forms_url).then(function(response) {
-        app.vue.forms = response.data.forms;
-        app.vue.filteredforms = response.data.forms;
+        this.forms = response.data.forms;
+        this.filteredforms = this.forms;
+        console.log("forms loaded:", this.forms);
+        console.log("filteredforms loaded:", this.filteredForms);
       }).catch(function(error) {
         console.log(error);
       });
@@ -76,6 +78,7 @@ app.vue = Vue.createApp(app.data).mount("#app");
 
 app.load_data = function () {
   if (window.location.pathname.endsWith('contact_requests.html')) {
+    console.log("Calling load_all_forms")
     app.vue.load_all_forms();
   }
 }

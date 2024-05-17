@@ -2,73 +2,54 @@
 
 <div id="app">
   <div class="section">
-      <div class="container">
-          <h1 class="title">Contact Requests</h1>
-          <div class="field">
-              <div class="control">
-                  <input id="nameSearch" class="search-input" type="text" placeholder="Search by Name">
-              </div>
+    <div class="container">
+      <h1 class="title">Contact Us</h1>
+      <form id="contact-form">
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input class="name-input" type="text" placeholder="Name" id="name" v-model="new_form.name" required>
           </div>
-          <div class="field">
-              <div class="control">
-                  <input id="messageSearch" class="search-input" type="text" placeholder="Search by Message">
-              </div>
-          </div>
+        </div>
 
-          <table class="table is-fullwidth">
-              <thead>
-                  <tr>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th>Message</th>
-                  </tr>
-              </thead>
-              <tbody id="requestsTable">
-                  <!-- Rows will be added here by JavaScript -->
-              </tbody>
-          </table>
-      </div>
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="email-input" type="email" placeholder="Email" id="email" v-model="new_form.email" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Phone</label>
+          <div class="control">
+            <input class="phone-input" type="number" placeholder="Phone" id="phone" v-model="new_form.phone" required>
+          </div>  
+        </div>
+
+        <div class="field">
+          <label class="label">Message</label>
+          <div class="control">
+            <textarea class="message-input" placeholder="Message" id="message" v-model="new_form.message" required></textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button class="button is-primary" @click.prevent="create_form" :disabled="!new_form.name || !new_form.email || !new_form.phone || !new_form.message">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 
 [[block page_scripts]]
 
 <script>
-let contact_requests_url = "[[=XML(contact_requests_url)]]";
-
-document.getElementById('nameSearch').addEventListener('input', updateSearch);
-document.getElementById('messageSearch').addEventListener('input', updateSearch);
-
-function updateSearch() {
-  const nameSearch = document.getElementById('nameSearch').value;
-  const messageSearch = document.getElementById('messageSearch').value;
-
-  axios.get(contact_requests_url, {
-    params: {
-      nameSearch: nameSearch,
-      messageSearch: messageSearch
-    }
-  })
-  .then(response => {
-    const requestsTable = document.getElementById('requestsTable');
-    requestsTable.innerHTML = '';
-    response.data.forEach(request => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${request.name}</td>
-        <td>${request.email}</td>
-        <td>${request.phone}</td>
-        <td>${request.message}</td>
-      `;
-      requestsTable.appendChild(row);
-    });
-  });
-}
-
-updateSearch();
+  let create_form_url = "[[=XML(create_form_url)]]";
 </script>
 
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
 <script src="js/index.js"></script>
 [[end]]
