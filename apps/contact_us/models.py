@@ -17,10 +17,10 @@ def get_time():
 # Complete. 
 db.define_table(
     'form',
-    Field('name'),
-    Field('email'),
-    Field('phone'),
-    Field('message'),
+    Field('name', 'string'),
+    Field('email', 'string'),
+    Field('phone', 'string'),
+    Field('message', 'text'),
     # Field('timestamp', 'datetime', default=lambda: datetime.datetime.utcnow()),
 )
 
