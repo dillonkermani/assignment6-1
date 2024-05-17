@@ -265,6 +265,7 @@ class Assignment(ProtoAssignment):
         self.login(self.user1)
         self.goto("contact_requests")
         grid = self.browser.find_elements(By.CSS_SELECTOR, "table.grid-table")
+        print("GRID", len(grid), grid)
         assert len(grid) == 1, "S4-5 The admin@example.com user should be able to see the grid."
         return 1, "Only admin@example.com can access the grid."
              
