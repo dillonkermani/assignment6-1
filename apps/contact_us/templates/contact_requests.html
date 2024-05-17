@@ -29,39 +29,7 @@
     <div class="section">
         <div class="container">
             <h1 class="title">Contact Requests</h1>
-                <div class="field">
-                    <div class="control">
-                        <input v-model="nameSearch" @input="search_forms_name(nameSearch)" class="search-input" type="text" placeholder="Search by Name">
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        <input v-model="messageSearch" @input="search_forms_message(messageSearch)" class="search-input" type="text" placeholder="Search by Message">
-                    </div>
-                </div>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Message</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="form in filtered_forms">
-                        <td>{{ form.name }}</td>
-                        <td>{{ form.email }}</td>
-                        <td>{{ form.phone }}</td>
-                        <td>{{ form.message }}</td>
-                        <td>
-                            <button @click="delete_form(form.id)">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+           [[=grid.render()]]
         </div>
     </div>
 </div>
